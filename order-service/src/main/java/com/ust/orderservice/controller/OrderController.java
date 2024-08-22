@@ -5,6 +5,7 @@ import com.ust.orderservice.domain.OrderItem;
 import com.ust.orderservice.domain.OrderStatus;
 import com.ust.orderservice.payload.OrderRequest;
 import com.ust.orderservice.service.OrderService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/orders")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
@@ -37,5 +38,15 @@ public class OrderController {
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
+    }
+
+    @GetMapping("/checkOrder/{id}")
+    public ResponseEntity<Order> checkOrder(@PathVariable Long id){
+        return ResponseEntity.ok(orderService.checkOrder(id));
+    }
+
+    @GetMapping("/confirmOrder/{id}")
+    public ResponseEntity<Order> confirmOrder(@PathVariable Long id){
+        return ResponseEntity.ok(orderService.confirmOrder(id));
     }
 }
